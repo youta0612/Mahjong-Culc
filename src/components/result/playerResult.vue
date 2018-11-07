@@ -17,7 +17,7 @@
       <v-ons-list-item>
         <div class="left"> 場代 </div>
         <div class="right">
-          <span :class="{ plus: isPlus(-fee), minus: isMinus(-fee) }">{{ -Math.round(fee) }} 円</span>
+          <span :class="{ plus: isPlus(-roundedFee), minus: isMinus(-roundedFee) }">{{ -roundedFee }} 円</span>
         </div>
       </v-ons-list-item>
       <v-ons-list-item>
@@ -42,8 +42,11 @@
           return '負け分'
         }
       },
+      roundedFee () {
+        return Math.round(this.fee)
+      },
       total () {
-        return Number(this.winnings) - Number(this.fee) + Number(this.option)
+        return Number(this.winnings) - Number(this.roundedFee) + Number(this.option)
       },
       selectGif () {
         const dir = this.total > 0 ? 'winner' : 'loser'
